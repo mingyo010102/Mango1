@@ -1,1 +1,203 @@
-/* Add styles here */
+:root {
+  --bg-color: oklch(20% 0.03 240);
+  --text-color: oklch(95% 0.01 240);
+  --primary-color: oklch(65% 0.2 280);
+  --card-bg: oklch(25% 0.04 240);
+  --shadow-color: oklch(20% 0.03 280 / 0.5);
+  --glow-color: oklch(70% 0.25 280 / 0.7);
+}
+
+[data-theme='light'] {
+  --bg-color: oklch(95% 0.01 240);
+  --text-color: oklch(20% 0.03 240);
+  --primary-color: oklch(65% 0.2 280);
+  --card-bg: oklch(100% 0 0);
+  --shadow-color: oklch(20% 0.03 280 / 0.3);
+  --glow-color: oklch(65% 0.2 280 / 0.7);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: calc(1rem + 250px + 2rem); /* 1rem (default) + sidebar width + main-container gap */
+  font-size: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  z-index: 1000;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 250px 1fr 250px;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.sidebar {
+  width: 100%; /* Ensure sidebar takes full width of its grid column */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.content {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  text-shadow: 0 0 15px var(--glow-color);
+  margin-bottom: 2rem;
+}
+
+.controls {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+label {
+  font-size: 1.1rem;
+}
+
+input[type="number"] {
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 80px;
+  border-radius: 8px;
+  border: 1px solid var(--card-bg);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: box-shadow 0.3s ease;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+#generate-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px -5px var(--shadow-color);
+}
+
+#generate-btn:hover {
+  background-color: oklch(70% 0.25 280);
+  box-shadow: 0 0 20px var(--glow-color);
+  transform: translateY(-2px);
+}
+
+#generate-btn:active {
+    transform: translateY(0);
+}
+
+#results-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.lotto-set {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 25px -10px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lotto-set:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -10px var(--shadow-color);
+}
+
+.ad-banner-container {
+  min-height: 400px;
+  padding: 1rem;
+  border: 2px dashed var(--primary-color);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-bg);
+}
+
+/* REMOVED: .contact-container styles */
+
+.top-contact-info {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: oklch(75% 0.05 240);
+}
+
+/* Accessibility */
+input[type="number"]:focus-visible, 
+#generate-btn:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1024px) {
+    .main-container {
+      grid-template-columns: 1fr; /* Single column layout for smaller screens */
+      padding: 1rem; /* Adjust padding for smaller screens */
+    }
+    .theme-toggle {
+      right: 1rem; /* Reset right position for smaller screens */
+    }
+    .sidebar {
+      order: 1; /* Move sidebars below content on smaller screens */
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem; /* Adjust gap for row layout */
+    }
+    .content {
+      order: 0; /* Keep content at the top */
+    }
+    .ad-banner-container {
+      flex-grow: 1;
+      min-width: 200px;
+      margin-top: 0; /* Remove top margin when in row layout */
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        gap: 1rem;
+    }
+    h1 {
+        font-size: 2.5rem;
+    }
+}
